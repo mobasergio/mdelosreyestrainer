@@ -1,0 +1,90 @@
+---
+import { Mail, Phone, MapPin } from 'lucide-astro';
+---
+
+<section id="contact" class="py-24 bg-muted/30">
+  <div class="container mx-auto px-4">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-12 fade-in-section">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6 text-balance">Ready to Start Your Transformation?</h2>
+        <p class="text-lg text-muted-foreground leading-relaxed text-pretty">
+          Get in touch today for a free consultation. Let's discuss your goals and create a plan to achieve them.
+        </p>
+      </div>
+
+      <div class="fade-in-section" style="animation-delay: 0.2s">
+        <div class="rounded-lg border-2 bg-card text-card-foreground p-8">
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="text-center contact-item">
+              <div class="contact-icon inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent mb-4">
+                <Mail class="w-6 h-6 text-accent-foreground" />
+              </div>
+              <h3 class="font-bold mb-2">Email</h3>
+              <p class="text-sm text-muted-foreground">maria@fitness.com</p>
+            </div>
+            <div class="text-center contact-item">
+              <div class="contact-icon inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent mb-4">
+                <Phone class="w-6 h-6 text-accent-foreground" />
+              </div>
+              <h3 class="font-bold mb-2">Phone</h3>
+              <p class="text-sm text-muted-foreground">+1 (555) 123-4567</p>
+            </div>
+            <div class="text-center contact-item">
+              <div class="contact-icon inline-flex items-center justify-center w-12 h-12 rounded-full bg-accent mb-4">
+                <MapPin class="w-6 h-6 text-accent-foreground" />
+              </div>
+              <h3 class="font-bold mb-2">Location</h3>
+              <p class="text-sm text-muted-foreground">Downtown Fitness Studio</p>
+            </div>
+          </div>
+
+          <div class="mt-8 text-center">
+            <a href="mailto:maria@fitness.com" class="inline-flex items-center justify-center rounded-lg text-base font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring bg-accent text-accent-foreground hover:bg-accent/90 h-12 px-12">
+              Book Free Consultation
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fade-in-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .fade-in-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .contact-icon {
+    transition: transform 0.6s ease;
+  }
+
+  .contact-item:hover .contact-icon {
+    transform: rotate(360deg) scale(1.1);
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '-100px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.fade-in-section').forEach(el => {
+    observer.observe(el);
+  });
+</script>

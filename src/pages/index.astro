@@ -1,16 +1,30 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import Hero from '../components/Hero.astro';
+import About from '../components/About.astro';
+import Pricing from '../components/Pricing.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Contact from '../components/Contact.astro';
+import Footer from '../components/Footer.astro';
 
+// import { getCollection } from 'astro:content';
+
+// const testimonios = await getCollection('testimonios');
+// const testimoniosOrdenados = testimonios.sort((a, b) => 
+//   b.data.fecha.getTime() - a.data.fecha.getTime()
+// );
+
+// const planes = await getCollection('planes');
+// const planesOrdenados = planes.sort((a, b) => a.data.orden - b.data.orden);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+  <main class="min-h-screen">
+    <Hero />
+    <About />
+    <Pricing />
+    <Testimonials />
+    <Contact />
+    <Footer />
+  </main>
+</Layout>

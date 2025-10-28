@@ -1,0 +1,249 @@
+---
+import { Star, ChevronLeft, ChevronRight } from 'lucide-astro';
+import { Image } from 'astro:assets';
+
+const testimonials = [
+  {
+    name: "Sofia Martinez",
+    role: "Lost 30 lbs in 4 months",
+    content: "María completely transformed my relationship with fitness. Her personalized approach and constant support made all the difference. I feel stronger and more confident than ever! Working with her has been one of the best decisions I've ever made. She doesn't just give you a workout plan - she teaches you how to live a healthier lifestyle that's sustainable for the long term. Every session is tailored to my needs and goals, and she always pushes me just enough to see progress without burning out.",
+    rating: 5,
+    image: "/images/professional-headshot-woman-smiling-fitness-client.jpg",
+  },
+  {
+    name: "Carlos Rodriguez",
+    role: "Marathon finisher",
+    content: "Training with María helped me achieve my dream of running a marathon. Her expertise in building endurance and preventing injuries was invaluable. Highly recommend! I came to her with zero running experience and she built a program that gradually increased my stamina while keeping me injury-free. Her knowledge of proper form, nutrition timing, and recovery protocols made all the difference. I not only finished my first marathon but did it with a time I never thought possible.",
+    rating: 5,
+    image: "/images/professional-headshot-man-smiling-fitness-client.jpg",
+  },
+  {
+    name: "Ana Fernandez",
+    role: "Gained muscle & confidence",
+    content: "I was intimidated by strength training until I met María. She made every session fun and challenging. The results speak for themselves - I've never felt this strong! As a woman, I was worried about 'bulking up' but María educated me on how strength training actually works and designed a program perfect for my goals. Now I'm lifting weights I never imagined possible and my confidence has skyrocketed both in and out of the gym.",
+    rating: 5,
+    image: "/images/professional-headshot-woman-smiling-athletic.jpg",
+  },
+  {
+    name: "Miguel Santos",
+    role: "Lost 25 lbs",
+    content: "After years of failed diets, María showed me that sustainable fitness is about lifestyle, not quick fixes. Her guidance changed my life completely. She helped me understand that weight loss isn't just about calories in and calories out - it's about building healthy habits, managing stress, getting quality sleep, and finding joy in movement. The weight came off naturally as I adopted these principles, and for the first time in my life, I feel like I can maintain these results forever.",
+    rating: 5,
+    image: "/images/professional-headshot-man-smiling-fitness-client.jpg",
+  },
+  {
+    name: "Laura Gomez",
+    role: "Postpartum transformation",
+    content: "María helped me regain my strength after pregnancy. Her understanding and tailored approach made me feel supported every step of the way. She knew exactly how to work with my postpartum body, focusing on core rehabilitation and gradual strength building. She never made me feel rushed or pressured, and celebrated every small victory with me. Thanks to her, I feel stronger now than I did before pregnancy, and I have the energy to keep up with my little one.",
+    rating: 5,
+    image: "/images/professional-headshot-woman-smiling-fitness-client.jpg",
+  },
+  {
+    name: "David Torres",
+    role: "Built lean muscle",
+    content: "I wanted to build muscle without bulking up. María's program was perfect - I'm lean, strong, and feel amazing. Best investment I've made! Her approach to hypertrophy training is scientific yet practical. She taught me about progressive overload, proper nutrition for lean gains, and how to structure my training for maximum efficiency. The body composition changes have been incredible, and I've learned so much about fitness that I can maintain these results for life.",
+    rating: 5,
+    image: "/images/professional-headshot-man-smiling-fitness-client.jpg",
+  },
+  {
+    name: "Elena Ruiz",
+    role: "Improved flexibility",
+    content: "As a desk worker, I had terrible posture and flexibility. María's stretching and mobility work has been life-changing. No more back pain! She identified my specific problem areas and created a mobility routine that fits into my busy schedule. The improvement in my posture has been remarkable - my colleagues have even commented on how much taller I look. The chronic pain I lived with for years is completely gone, and I have so much more energy throughout the day.",
+    rating: 5,
+    image: "/images/professional-headshot-woman-smiling-athletic.jpg",
+  },
+  {
+    name: "Roberto Diaz",
+    role: "Triathlon competitor",
+    content: "María's training got me ready for my first triathlon. Her knowledge of cross-training and recovery is exceptional. Couldn't have done it without her! Training for three different disciplines simultaneously seemed overwhelming, but María created a periodized program that built my swimming, cycling, and running abilities in perfect harmony. Her emphasis on recovery and injury prevention kept me healthy throughout the entire training cycle, and I finished my first triathlon feeling strong.",
+    rating: 5,
+    image: "/images/professional-headshot-man-smiling-fitness-client.jpg",
+  },
+  {
+    name: "Carmen Lopez",
+    role: "Lost 40 lbs",
+    content: "I've tried every diet and gym membership. María was different - she taught me sustainable habits and believed in me when I didn't believe in myself. Her approach isn't about restriction or punishment - it's about finding what works for your life and your body. She helped me develop a healthy relationship with food and exercise, something I never had before. The weight loss was almost a side effect of becoming a healthier, happier person overall.",
+    rating: 5,
+    image: "/images/professional-headshot-woman-smiling-fitness-client.jpg",
+  },
+  {
+    name: "Javier Morales",
+    role: "Injury recovery",
+    content: "After a sports injury, I thought my active days were over. María's rehabilitation program got me back stronger than before. Forever grateful! She worked closely with my physical therapist to create a program that addressed my injury while maintaining my overall fitness. Her patience and expertise during the recovery process were incredible. Not only did I fully recover, but I'm now stronger and more mobile than I was before the injury. She gave me my active lifestyle back.",
+    rating: 5,
+    image: "/images/professional-headshot-man-smiling-fitness-client.jpg",
+  },
+  {
+    name: "Isabel Navarro",
+    role: "Strength & confidence",
+    content: "At 55, I thought it was too late to get fit. María proved me wrong! I'm lifting weights, feeling energized, and inspiring my friends to join me. She understands the unique challenges of training at my age and has created a program that builds strength while protecting my joints. I've never felt more capable or confident in my body. My bone density has improved, my balance is better, and I have more energy than I did in my 40s. Age is truly just a number!",
+    rating: 5,
+    image: "/images/professional-headshot-woman-smiling-athletic.jpg",
+  },
+  {
+    name: "Pablo Herrera",
+    role: "Body transformation",
+    content: "María's holistic approach to fitness - combining training, nutrition, and mindset - gave me results I never thought possible. True professional! She doesn't just focus on the physical aspect of fitness. She helped me address the mental barriers that were holding me back, taught me how to fuel my body properly, and created workouts that I actually look forward to. The transformation has been total - physically, mentally, and emotionally. I'm a completely different person than I was a year ago.",
+    rating: 5,
+    image: "/images/professional-headshot-man-smiling-fitness-client.jpg",
+  },
+];
+---
+
+<section id="testimonials" class="py-24 bg-background">
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mx-auto text-center mb-16 fade-in-section">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-balance">Real People, Real Results</h2>
+      <p class="text-lg text-muted-foreground leading-relaxed text-pretty">
+        Don't just take my word for it. Here's what my clients have to say about their transformation journey.
+      </p>
+    </div>
+
+    <div class="relative max-w-7xl mx-auto">
+      <button id="scroll-left" class="absolute left-4 top-1/2 -translate-y-1/2 z-10 inline-flex items-center justify-center rounded-lg border border-input bg-background/95 backdrop-blur-sm shadow-lg hover:bg-accent hover:text-accent-foreground transition-colors w-10 h-10" aria-label="Scroll left">
+        <ChevronLeft class="h-6 w-6" />
+      </button>
+
+      <div id="testimonials-scroll" class="flex gap-6 overflow-x-auto pb-4 scrollbar-hide px-16">
+        {[...testimonials, ...testimonials, ...testimonials].map((testimonial, index) => (
+          <div class="testimonial-card flex-shrink-0 w-[380px]">
+            <div class="rounded-lg border-2 bg-card text-card-foreground h-full hover:shadow-xl hover:scale-105 transition-all duration-300 p-6">
+              <div class="flex items-center gap-4 mb-4">
+                <div class="relative w-16 h-16 rounded-full overflow-hidden">
+                  <Image
+                    src={testimonial.image || "/placeholder.svg"}
+                    alt={testimonial.name}
+                    width={64}
+                    height={64}
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <div class="flex-1">
+                  <p class="font-bold">{testimonial.name}</p>
+                  <p class="text-sm text-muted-foreground">{testimonial.role}</p>
+                </div>
+              </div>
+              <div class="flex gap-1 mb-4">
+                {Array.from({ length: testimonial.rating }).map(() => (
+                  <Star class="w-5 h-5 fill-accent text-accent" />
+                ))}
+              </div>
+              <div class="space-y-2">
+                <p class="testimonial-text text-foreground leading-relaxed">
+                  "{testimonial.content}"
+                </p>
+                <button class="read-more-btn text-sm text-accent hover:text-accent/80 font-medium transition-colors underline-offset-4 hover:underline hidden">
+                  Read more
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <button id="scroll-right" class="absolute right-4 top-1/2 -translate-y-1/2 z-10 inline-flex items-center justify-center rounded-lg border border-input bg-background/95 backdrop-blur-sm shadow-lg hover:bg-accent hover:text-accent-foreground transition-colors w-10 h-10" aria-label="Scroll right">
+        <ChevronRight class="h-6 w-6" />
+      </button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .fade-in-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .fade-in-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .testimonial-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .testimonial-text.expanded {
+    display: block;
+    -webkit-line-clamp: unset;
+  }
+</style>
+
+<script>
+  // Intersection observer for fade-in
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '-100px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.fade-in-section').forEach(el => {
+    observer.observe(el);
+  });
+
+  // Scroll functionality
+  const scrollContainer = document.getElementById('testimonials-scroll');
+  const scrollLeftBtn = document.getElementById('scroll-left');
+  const scrollRightBtn = document.getElementById('scroll-right');
+
+  if (scrollContainer && scrollLeftBtn && scrollRightBtn) {
+    const scroll = (direction: 'left' | 'right') => {
+      const scrollAmount = 400;
+      const newScrollLeft = direction === 'left' 
+        ? scrollContainer.scrollLeft - scrollAmount 
+        : scrollContainer.scrollLeft + scrollAmount;
+
+      scrollContainer.scrollTo({
+        left: newScrollLeft,
+        behavior: 'smooth',
+      });
+    };
+
+    scrollLeftBtn.addEventListener('click', () => scroll('left'));
+    scrollRightBtn.addEventListener('click', () => scroll('right'));
+
+    // Infinite scroll loop
+    const handleScroll = () => {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainer;
+      const singleSetWidth = scrollWidth / 3;
+
+      if (scrollLeft <= 0) {
+        scrollContainer.scrollLeft = singleSetWidth;
+      } else if (scrollLeft >= singleSetWidth * 2) {
+        scrollContainer.scrollLeft = singleSetWidth;
+      }
+    };
+
+    scrollContainer.addEventListener('scroll', handleScroll);
+    scrollContainer.scrollLeft = scrollContainer.scrollWidth / 3;
+  }
+
+  // Read more/less functionality
+  document.querySelectorAll('.testimonial-card').forEach((card) => {
+    const text = card.querySelector('.testimonial-text');
+    const btn = card.querySelector('.read-more-btn');
+    
+    if (text && btn) {
+      const fullText = text.textContent || '';
+      if (fullText.length > 150) {
+        btn.classList.remove('hidden');
+        
+        btn.addEventListener('click', () => {
+          text.classList.toggle('expanded');
+          btn.textContent = text.classList.contains('expanded') ? 'Show less' : 'Read more';
+        });
+      }
+    }
+  });
+</script>

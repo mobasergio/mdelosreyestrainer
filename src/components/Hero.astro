@@ -1,0 +1,91 @@
+---
+import { Image } from 'astro:assets';
+---
+
+<section id="hero" class="relative min-h-screen flex items-center justify-center bg-primary text-primary-foreground overflow-hidden">
+  <div class="parallax-bg absolute inset-0 z-0">
+    <Image
+      src="/images/hero.jpg"
+      alt="Hero background"
+      width={1920}
+      height={1080}
+      class="w-full h-full object-cover opacity-30"
+      loading="eager"
+    />
+  </div>
+
+  <div class="container mx-auto px-4 py-20 relative z-10">
+    <div class="max-w-4xl mx-auto text-center">
+      <div class="hero-content">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 text-balance opacity-0 translate-y-12 animate-fade-in-up">
+          Asesorías de entrenamiento
+          <span class="block text-accent mt-2">Exprime tu potencial</span>
+        </h1>
+
+        <p class="text-xl md:text-2xl mb-8 text-primary-foreground/90 text-pretty leading-relaxed opacity-0 translate-y-12 animate-fade-in-up animation-delay-200">
+          Personal training with María de los Reyes. Achieve your fitness goals with customized programs designed just for you.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 justify-center opacity-0 translate-y-12 animate-fade-in-up animation-delay-400">
+          <a href="#contact" class="inline-flex items-center justify-center rounded-lg text-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-accent text-accent-foreground hover:bg-accent/90 h-14 px-8">
+            Start Your Journey
+          </a>
+          <a href="#pricing" class="inline-flex items-center justify-center rounded-lg text-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring border border-primary-foreground/20 bg-transparent text-primary-foreground hover:bg-primary-foreground/10 h-14 px-8">
+            View Programs
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent"></div>
+</section>
+
+<style>
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(3rem);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 0.4s;
+  }
+
+  .parallax-bg {
+    will-change: transform;
+  }
+</style>
+
+<script>
+  // Parallax effect
+  const hero = document.querySelector('#hero');
+  const parallaxBg = document.querySelector('.parallax-bg');
+
+  if (hero && parallaxBg) {
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      const heroHeight = hero.clientHeight;
+      
+      if (scrolled < heroHeight) {
+        const yPos = scrolled * 0.5;
+        const opacity = 1 - (scrolled / heroHeight);
+        (parallaxBg as HTMLElement).style.transform = `translateY(${yPos}px)`;
+        (parallaxBg as HTMLElement).style.opacity = opacity.toString();
+      }
+    });
+  }
+</script>

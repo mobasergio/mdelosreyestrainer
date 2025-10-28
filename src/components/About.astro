@@ -1,0 +1,122 @@
+---
+import { Target, Heart, Trophy, Zap } from 'lucide-astro';
+import { Image } from 'astro:assets';
+
+const features = [
+  {
+    icon: Target,
+    title: "Personalized Plans",
+    description: "Custom workout and nutrition programs tailored to your unique goals and lifestyle.",
+  },
+  {
+    icon: Heart,
+    title: "Holistic Approach",
+    description: "Focus on physical, mental, and emotional wellness for lasting transformation.",
+  },
+  {
+    icon: Trophy,
+    title: "Proven Results",
+    description: "Track record of helping clients achieve and exceed their fitness goals.",
+  },
+  {
+    icon: Zap,
+    title: "Expert Guidance",
+    description: "Professional coaching with years of experience in personal training and nutrition.",
+  },
+];
+
+const trainingTypes = [
+  { image: "/images/woman-doing-strength-training-with-dumbbells-in-gy.jpg", title: "Strength Training" },
+  { image: "/images/woman-doing-cardio-workout-running-outdoors.jpg", title: "Cardio Workouts" },
+  { image: "/images/woman-doing-yoga-and-flexibility-exercises.jpg", title: "Flexibility & Wellness" },
+  { image: "/images/woman-doing-nutrition-meal-prep-healthy-eating.jpg", title: "Nutrition Guidance" },
+];
+---
+
+<section id="about" class="py-24 bg-background">
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mx-auto text-center mb-16 fade-in-section">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-balance">Your Partner in Fitness Excellence</h2>
+      <p class="text-lg text-muted-foreground leading-relaxed text-pretty">
+        Hi, I'm María de los Reyes, a certified personal trainer dedicated to helping you unlock your full potential. With a passion for fitness and a commitment to your success, I create personalized training experiences that deliver real, lasting results.
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
+      {features.map((feature, index) => (
+        <div class="text-center fade-in-section" style={`animation-delay: ${index * 0.1}s`}>
+          <div class="feature-icon inline-flex items-center justify-center w-16 h-16 rounded-full bg-accent mb-4">
+            <feature.icon class="w-8 h-8 text-accent-foreground" />
+          </div>
+          <h3 class="text-xl font-bold mb-2">{feature.title}</h3>
+          <p class="text-muted-foreground leading-relaxed">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto mt-16">
+      {trainingTypes.map((type, index) => (
+        <div class="training-card relative h-64 rounded-lg overflow-hidden fade-in-section" style={`animation-delay: ${0.4 + index * 0.1}s`}>
+          <Image
+            src={type.image || "/placeholder.svg"}
+            alt={type.title}
+            width={400}
+            height={300}
+            class="w-full h-full object-cover"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent flex items-end p-6">
+            <p class="text-white font-bold text-xl">{type.title}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .fade-in-section {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+
+  .fade-in-section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .feature-icon {
+    transition: transform 0.6s ease;
+  }
+
+  .feature-icon:hover {
+    transform: rotate(360deg) scale(1.1);
+  }
+
+  .training-card {
+    transition: transform 0.3s ease;
+  }
+
+  .training-card:hover {
+    transform: scale(1.05);
+  }
+</style>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '-100px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.fade-in-section').forEach(el => {
+    observer.observe(el);
+  });
+</script>
