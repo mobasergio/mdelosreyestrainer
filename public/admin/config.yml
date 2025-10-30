@@ -9,6 +9,18 @@ media_folder: "public/images"
 public_folder: "/images"
 
 collections:
+  - name: "planes"
+    label: "Planes de Entrenamiento"
+    folder: "src/content/planes"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - { label: "Nombre", name: "titulo", widget: "string", required: true }
+      - { label: "Descripcion", name: "subtitulo", widget: "string", required: true }
+      - { label: "Precio total", name: "precio", widget: "number", value_type: "float", required: true }
+      - { label: "Características", name: "caracteristicas", widget: "list", required: true, hint: "Lista de beneficios del plan", field: { label: "Beneficio", name: "beneficio", widget: "string" } }
+      - { label: "Orden", name: "orden", widget: "number", value_type: "int", default: 1, hint: "Orden de aparición de izquierda a derecha (1, 2, 3...)" }
+
   - name: "testimonios"
     label: "Testimonios"
     folder: "src/content/testimonios"
@@ -17,20 +29,4 @@ collections:
     fields:
       - { label: "Nombre", name: "nombre", widget: "string", required: true }
       - { label: "Foto del cliente", name: "foto", widget: "image", required: true, media_folder: "/public/images/testimonios", public_folder: "/images/testimonios" }
-      - { label: "Fecha", name: "fecha", widget: "date", format: "YYYY-MM-DD", required: true }
-      - { label: "Destacado", name: "destacado", widget: "boolean", default: false, hint: "Marcar para mostrar en página principal" }
       - { label: "Testimonio", name: "body", widget: "markdown", required: true }
-
-  - name: "planes"
-    label: "Planes de Entrenamiento"
-    folder: "src/content/planes"
-    create: true
-    slug: "{{slug}}"
-    fields:
-      - { label: "Nombre del plan", name: "nombre", widget: "string", required: true }
-      - { label: "Precio (€/mes)", name: "precio", widget: "number", value_type: "float", required: true }
-      - { label: "Duración", name: "duracion", widget: "string", hint: "Ej: 1 mes, 3 meses, etc.", required: true }
-      - { label: "Características", name: "caracteristicas", widget: "list", required: true, hint: "Lista de beneficios del plan" }
-      - { label: "Orden", name: "orden", widget: "number", value_type: "int", default: 1, hint: "Orden de aparición (1, 2, 3...)" }
-      - { label: "Plan destacado", name: "destacado", widget: "boolean", default: false }
-      - { label: "Descripción", name: "body", widget: "markdown", required: true }

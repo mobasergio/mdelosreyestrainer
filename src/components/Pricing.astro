@@ -1,87 +1,58 @@
 ---
 import { Check } from 'lucide-astro';
 
-const plans = [
-  {
-    name: "Essential",
-    totalPrice: 267,
-    monthlyPrice: 89,
-    description: "Perfect for getting started on your fitness journey",
-    features: [
-      "4 personal training sessions per month",
-      "Customized workout plan",
-      "Nutrition guidance",
-      "Progress tracking",
-      "Email support",
-    ],
-    highlighted: false,
-  },
-  {
-    name: "Premium",
-    totalPrice: 447,
-    monthlyPrice: 149,
-    description: "For those serious about transformation",
-    features: [
-      "8 personal training sessions per month",
-      "Fully customized workout & meal plans",
-      "Weekly progress check-ins",
-      "Priority scheduling",
-      "24/7 messaging support",
-      "Body composition analysis",
-    ],
-    highlighted: true,
-  },
-];
+import { getCollection } from 'astro:content';
+
+const planes = await getCollection('planes');
+const planesOrdenados = planes.sort((a, b) => a.data.orden - b.data.orden);
 ---
 
 <section id="pricing" class="py-24 bg-primary text-primary-foreground">
   <div class="container mx-auto px-4">
     <div class="max-w-3xl mx-auto text-center mb-16 fade-in-section">
-      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-balance">Choose Your Path to Success</h2>
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-balance">Planes a medida</h2>
       <p class="text-lg text-primary-foreground/80 leading-relaxed text-pretty">
-        Select the training program that fits your goals and commitment level. All plans include my personal attention and expertise.
+        ¿Quieres entrenar por tu cuenta o prefieres tener un seguimiento detallado? Selecciona el plan que mejor se adapte a tu situación.
       </p>
     </div>
 
     <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-      {plans.map((plan, index) => (
-        <div class={`pricing-card fade-in-section ${plan.highlighted ? 'highlighted' : ''}`} style={`animation-delay: ${index * 0.2}s`}>
-          <div class={`relative h-full rounded-lg border-2 bg-card text-card-foreground p-6 ${plan.highlighted ? 'border-accent shadow-2xl scale-105' : 'border-primary-foreground/20'}`}>
-            {plan.highlighted && (
-              <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-accent text-accent-foreground px-4 py-1 rounded-full text-sm font-bold">
-                Most Popular
-              </div>
-            )}
+      {planesOrdenados.map((plan, index) => (
+        <div class='pricing-card fade-in-section' style={`animation-delay: ${index * 0.2}s`}>
+          <div class="relative flex flex-col h-full p-8 rounded-2xl bg-card text-card-foreground shadow-md">
             <div class="text-center pb-8">
-              <h3 class="text-3xl font-bold mb-2">{plan.name}</h3>
-              <p class="text-base text-muted-foreground">{plan.description}</p>
+              <h3 class="text-3xl text-accent font-bold mb-2">{plan.data.titulo}</h3>
+              <p class="text-base text-muted-foreground">{plan.data.subtitulo}</p>
               <div class="mt-6">
                 <div class="flex items-baseline justify-center gap-2">
-                  <span class="text-5xl font-bold">${plan.totalPrice}</span>
+                  <span class="text-5xl font-bold">{plan.data.precio}€</span>
                 </div>
-                <div class="mt-2 text-primary-foreground/70">
-                  <span class="text-sm">Unique payment • 3 months</span>
+                <div class="mt-2">
+                  <span class="text-sm text-muted-foreground">Pago único • 3 meses</span>
                 </div>
-                <div class="mt-3 pt-3 border-t border-primary-foreground/20">
-                  <span class="text-2xl font-semibold text-accent">${plan.monthlyPrice}</span>
-                  <span class="text-sm text-primary-foreground/70">/month</span>
+                <div class="mt-3 pt-2 border-t border-primary-foreground/20">
+                  <span class="text-2xl font-semibold">{Math.floor(plan.data.precio / 3)}€</span>
+                  <span class="text-sm text-muted-foreground">/mes</span>
                 </div>
               </div>
             </div>
             <ul class="space-y-3 mb-6">
-              {plan.features.map((feature) => (
+              {plan.data.caracteristicas.map((feature) => (
                 <li class="flex items-start gap-3">
                   <Check class="w-5 h-5 text-accent shrink-0 mt-0.5" />
                   <span class="leading-relaxed">{feature}</span>
                 </li>
               ))}
             </ul>
-            <a href="#contact" class={`inline-flex items-center justify-center rounded-lg text-base font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring w-full h-12 ${plan.highlighted ? 'bg-accent text-accent-foreground hover:bg-accent/90' : 'bg-primary text-primary-foreground hover:bg-primary/90'}`}>
-              Get Started
-            </a>
+            <div class="mt-auto pt-4">
+              <a target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSd1SiRlewAyguSPh_dHh68VFEP-76RCJWonqxxjmrdbtl7fzA/viewform?pli=1" class={`inline-flex items-center justify-center rounded-lg text-base font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring w-full h-12 bg-accent text-accent-foreground hover:bg-accent/90`}>
+                Empezar
+              </a>
+            </div>
           </div>
         </div>
       ))}
+
     </div>
   </div>
 </section>
@@ -124,4 +95,5 @@ const plans = [
   document.querySelectorAll('.fade-in-section').forEach(el => {
     observer.observe(el);
   });
+
 </script>
