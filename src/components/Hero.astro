@@ -2,21 +2,21 @@
 import { Image } from 'astro:assets';
 ---
 
-<section id="hero" class="relative min-h-screen flex items-center justify-center bg-primary text-primary-foreground overflow-hidden">
+<section id="hero" class="relative min-h-screen bg-primary text-primary-foreground overflow-hidden">
   <div class="parallax-bg absolute inset-0 z-0">
     <Image
       src="/images/hero.jpg"
       alt="Hero background"
       width={1920}
       height={1080}
-      class="w-full h-full object-cover opacity-30"
+      class="w-full h-full object-cover object-[70%_center] md:object-center opacity-30"
       loading="eager"
     />
   </div>
 
-  <div class="mx-auto px-4 py-20 relative z-10">
+  <div class="mx-auto px-4 md:py-30 relative z-10">
     <div class="max-w-4xl mx-auto text-center">
-      <div class="hero-content -mt-50">
+      <div class="hero-content mb-50 md:mb-0">
         <h1 class="text-5xl md:text-7xl font-bold mb-6 text-balance opacity-0 translate-y-12 animate-fade-in-up">
           Asesorías de entrenamiento
           <span class="block text-accent mt-2">Exprime tu potencial</span>
