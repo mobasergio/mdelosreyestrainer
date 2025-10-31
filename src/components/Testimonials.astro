@@ -31,6 +31,9 @@ const testimonios = await getCollection('testimonios');
                     alt={testimonial.data.nombre}
                     width={64}
                     height={64}
+                    loading="lazy"
+                    format="webp"
+                    quality={85}
                     class="w-full object-cover"
                   />
                 </div>
@@ -111,65 +114,49 @@ const testimonios = await getCollection('testimonios');
 </style>
 
 <script>
-  const observer = new IntersectionObserver(
-    entries => entries.forEach(e => e.isIntersecting && e.target.classList.add('visible')),
-    { threshold: 0.1, rootMargin: '-80px' }
-  );
-  document.querySelectorAll('.fade-in-section').forEach(el => observer.observe(el));
-
   const scrollContainer = document.getElementById('testimonials-scroll');
   const scrollLeftBtn = document.getElementById('scroll-left');
   const scrollRightBtn = document.getElementById('scroll-right');
 
   if (scrollContainer && scrollLeftBtn && scrollRightBtn) {
-    const cards = [...scrollContainer.querySelectorAll('.testimonial-card')];
-    
-    if (cards.length > 0) {
-      const firstClone = cards[0].cloneNode(true);
-      const lastClone = cards[cards.length - 1].cloneNode(true);
-      scrollContainer.append(firstClone);
-      scrollContainer.prepend(lastClone);
-    }
+    let cardWidth = 0;
+    let resizeTimer: number;
 
-    const getCardWidth = () => {
+    const updateCardWidth = () => {
       const card = scrollContainer.querySelector('.testimonial-card');
-      const gap = parseInt(getComputedStyle(scrollContainer).gap) || 24;
-      return card ? card.offsetWidth + gap : 0;
-    };
-
-    let cardWidth = getCardWidth();
-    scrollContainer.scrollLeft = cardWidth;
-
-    window.addEventListener('resize', () => {
-      cardWidth = getCardWidth();
-    }, { passive: true });
-
-    const scrollByCard = dir => scrollContainer.scrollBy({ left: dir * cardWidth, behavior: 'smooth' });
-
-    const handleLoop = () => {
-      const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-      if (scrollContainer.scrollLeft >= maxScroll - 10) {
-        scrollContainer.scrollTo({ left: cardWidth, behavior: 'auto' });
-      } else if (scrollContainer.scrollLeft <= 10) {
-        scrollContainer.scrollTo({ left: maxScroll - cardWidth, behavior: 'auto' });
+      if (card) {
+        const gap = parseInt(getComputedStyle(scrollContainer).gap) || 24;
+        cardWidth = (card as HTMLElement).offsetWidth + gap;
       }
     };
 
-    scrollLeftBtn.addEventListener('click', () => scrollByCard(-1), { passive: true });
-    scrollRightBtn.addEventListener('click', () => scrollByCard(1), { passive: true });
-    scrollContainer.addEventListener('scroll', handleLoop, { passive: true });
+    updateCardWidth();
+
+    // Debounced resize handler
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(updateCardWidth, 150);
+    }, { passive: true });
+
+    const scrollByCard = (dir: number) => {
+      scrollContainer.scrollBy({ left: dir * cardWidth, behavior: 'smooth' });
+    };
+
+    scrollLeftBtn.addEventListener('click', () => scrollByCard(-1));
+    scrollRightBtn.addEventListener('click', () => scrollByCard(1));
   }
 
+  // Simplified read more functionality
   document.querySelectorAll('.testimonial-card').forEach(card => {
-    const text = card.querySelector('.testimonial-text');
-    const btn = card.querySelector('.read-more-btn');
-    
-    if (text && btn && text.textContent.trim().length > 150) {
+    const text = card.querySelector('.testimonial-text') as HTMLElement;
+    const btn = card.querySelector('.read-more-btn') as HTMLElement;
+
+    if (text && btn && text.textContent && text.textContent.length > 150) {
       btn.classList.remove('hidden');
       btn.addEventListener('click', () => {
-        const expanded = text.classList.toggle('expanded');
-        btn.textContent = expanded ? 'Leer menos' : 'Leer más';
-      }, { passive: true });
+        text.classList.toggle('expanded');
+        btn.textContent = text.classList.contains('expanded') ? 'Leer menos' : 'Leer más';
+      });
     }
   });
 </script>

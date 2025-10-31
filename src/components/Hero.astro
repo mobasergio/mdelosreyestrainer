@@ -9,8 +9,12 @@ import { Image } from 'astro:assets';
       alt="Hero background"
       width={1920}
       height={1080}
+      widths={[640, 768, 1024, 1280, 1920]}
+      sizes="100vw"
       class="w-full h-full object-cover object-[70%_center] md:object-center opacity-30"
       loading="eager"
+      format="webp"
+      quality={80}
     />
   </div>
 
@@ -71,21 +75,31 @@ import { Image } from 'astro:assets';
 </style>
 
 <script>
-  // Parallax effect
+  // Parallax effect with throttle for performance
   const hero = document.querySelector('#hero');
   const parallaxBg = document.querySelector('.parallax-bg');
 
   if (hero && parallaxBg) {
-    window.addEventListener('scroll', () => {
+    let ticking = false;
+
+    const updateParallax = () => {
       const scrolled = window.scrollY;
       const heroHeight = hero.clientHeight;
-      
+
       if (scrolled < heroHeight) {
         const yPos = scrolled * 0.5;
         const opacity = 1 - (scrolled / heroHeight);
         (parallaxBg as HTMLElement).style.transform = `translateY(${yPos}px)`;
         (parallaxBg as HTMLElement).style.opacity = opacity.toString();
       }
-    });
+      ticking = false;
+    };
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }, { passive: true });
   }
 </script>
